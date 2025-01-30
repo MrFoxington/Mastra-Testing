@@ -9,6 +9,8 @@
             "request": "launch",
             "name": "Debug TypeScript",
             "program": "${workspaceFolder}/src/index.ts",
+            "console": "integratedTerminal",
+            "outputCapture": "std",
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "start"
