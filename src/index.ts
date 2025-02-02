@@ -15,6 +15,7 @@ import { createLogger } from '@mastra/core';
 import { weatherAgent } from './agents';
 import { z } from "zod";
 import { chefAgent } from './agents/cheffAgent';
+import { stockAgent } from './agents/stockAgent';
 
 // export const mastra = new Mastra({
 //   agents: { weatherAgent },
@@ -131,31 +132,44 @@ import { chefAgent } from './agents/cheffAgent';
 
 
 
-const mastra = new Mastra({
-  agents: { chefAgent },
-})
+// const mastra = new Mastra({
+//   agents: { chefAgent },
+// })
 
-const query = "I have milk, cereal, cream, flour garlic, bytter, cheese, bread and salami. What can I make?"
-const schema = z.object({
-  ingredients: z.array(
-    z.object({
-      name: z.string(),
-      amount: z.string()
-    }),
-  ),
-  steps: z.array(z.string()),
-})
-console.log("\n User:", query);
-const response = await chefAgent.generate([{ role: "user", content: query }], { output: schema });
-console.log("\n👨‍🍳 Chef:", response.object);
-
-
+// const query = "I have milk, cereal, cream, flour garlic, bytter, cheese, bread and salami. What can I make?"
+// const schema = z.object({
+//   ingredients: z.array(
+//     z.object({
+//       name: z.string(),
+//       amount: z.string()
+//     }),
+//   ),
+//   steps: z.array(z.string()),
+// })
 // console.log("\n User:", query);
-// const stream = await chefAgent.stream([{ role: "user", content: query }]);
+// const response = await chefAgent.generate([{ role: "user", content: query }], { output: schema });
+// console.log("\n👨‍🍳 Chef:", response.object);
 
-// console.log('STARTING STREAM READ \n')
-// for await (const chunk of stream.textStream) {
-//   process.stdout.write(chunk)
-// }
-// console.log("\n👨‍🍳 Chef - Recipie Complete");
+
+// // Stock Agent - Sample
+// const mastra = new Mastra({
+//   agents: { stockAgent },
+// })
+
+// const query = "What is the current price of NVIDIA?"
+// console.log("\n User:", query);
+// const response = await stockAgent.generate([{ role: "user", content: query }]);
+// console.log("\n Agent:", response.text);
+
+
+// Stock Agent - Testing 
+const mastra = new Mastra({
+  agents: { stockAgent },
+})
+
+const query = "What is the line of resistance and how does it relate to the NVIDIA stock? A Price Sample explaining it would be usefull"
+console.log("\n User:", query);
+const response = await stockAgent.generate([{ role: "user", content: query }]);
+console.log("\n Agent:", response.text);
+ 
 
